@@ -1,0 +1,27 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Proyecto_Publicaciones",
+  "homepage": "https://github.com/mistermister60/Proyecto_publicaciones#readme",
+  "bugs": {
+    "url": "https://github.com/mistermister60/Proyecto_publicaciones/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mistermister60/Proyecto_publicaciones.git"
+  },
+  "license": "MIT",
+  "author": "Carlos Fuentes,Litzy Figueroa, Joseph Garbutt, Samantha Grajeda",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "express-myconnection": "^1.0.4",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1"
+  }
+}
