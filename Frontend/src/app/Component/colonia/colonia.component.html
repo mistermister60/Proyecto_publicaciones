@@ -1,0 +1,32 @@
+<nav class="navbar navbar-dark bg-dark">
+    <a href="/" class="navbar-brand">REGISTRO DE COLONIAS</a>
+ 
+  </nav>
+
+ <div class="container">  
+    <div class="row mt-25">          
+   <table class="table table-borbered table-hover">
+     <thead>
+        <tr>
+            <th>NO</th>
+            <th>DETALLE COLONIA</th>
+            <th>ESTADO</th>
+  
+        </tr>
+  
+      </thead>
+    <tbody >
+  
+                <tr *ngFor="let User of TUser">
+                    <td >{{User.Id_Col}}</td>
+                    <td >{{User.Det_col}}</td>
+                    <td >{{User.Estado}}</td>
+                    <td>  <button  class="btn btn-danger">Eliminar</button> </td>
+                    <td>
+                        <button  class="btn btn-success">Actualizar</button></td>
+                  </tr>
+  
+     </tbody>
+   </table>
+</div>
+</div>

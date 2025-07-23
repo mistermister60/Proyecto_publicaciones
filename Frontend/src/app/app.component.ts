@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataService } from './Services/data.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Frontend';
+  constructor(public Data: DataService) {}
 }
