@@ -10,9 +10,9 @@ controller.list = (req, res) => {
 };
 
 controller.edit = (req, res) => {
-    const { Id } = req.params;
+    const { Id_Pub } = req.params;
     req.getConnection((err, conn) => {
-        conn.query('select * from epublicacion where Id_Pub = ?', [Id], (err, data) => {
+        conn.query('select * from epublicacion where Id_Pub = ?', [Id_Pub], (err, data) => {
             res.json(data[0]);
         });
     });
@@ -28,20 +28,20 @@ controller.save = (req, res) => {
 };
 
 controller.update = (req, res) => {
-    const { Id } = req.params;
+    const { Id_Pub } = req.params;
     const updated = req.body;
     req.getConnection((err, conn) => {
-        conn.query('update epublicacion set ? where Id_Pub = ?', [updated, Id], (err, result) => {
-            res.json({ message: "Servicio actualizado" });
+        conn.query('update epublicacion set ? where Id_Pub = ?', [updated, Id_Pub], (err, result) => {
+            res.json({ message: "Publicacion actualizado" });
         });
     });
 };
 
 controller.delete = (req, res) => {
-    const { Id } = req.params;
+    const { Id_Pub } = req.params;
     req.getConnection((err, conn) => {
-        conn.query('update cservicio set estado = ? where Id_serv = ?', ['Inactivo',Id], (err, result) => {
-            res.json({ message: "Servicio eliminado" });
+        conn.query('update epublicacion set estado = ? where Id_Pub = ?', ['Inactivo',Id_Pub], (err, result) => {
+            res.json({ message: "Publicacion eliminado" });
         });
     });
 };

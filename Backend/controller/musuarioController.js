@@ -10,9 +10,9 @@ controller.list = (req, res) => {
 };
 
 controller.edit = (req, res) => {
-    const { Id } = req.params;
+    const { Id_usu } = req.params;
     req.getConnection((err, conn) => {
-        conn.query('select * from musuario where Id_usu = ?', [Id], (err, data) => {
+        conn.query('select * from musuario where Id_usu = ?', [Id_usu], (err, data) => {
             res.json(data[0]);
         });
     });
@@ -28,20 +28,20 @@ controller.save = (req, res) => {
 };
 
 controller.update = (req, res) => {
-    const { Id } = req.params;
+    const { Id_usu } = req.params;
     const updated = req.body;
     req.getConnection((err, conn) => {
-        conn.query('update musuario set ? where Id_usu = ?', [updated, Id], (err, result) => {
-            res.json({ message: "Servicio actualizado" });
+        conn.query('update musuario set ? where Id_usu = ?', [updated, Id_usu], (err, result) => {
+            res.json({ message: "Usuario actualizado" });
         });
     });
 };
 
 controller.delete = (req, res) => {
-    const { Id } = req.params;
+    const { Id_usu } = req.params;
     req.getConnection((err, conn) => {
-        conn.query('update cservicio set estado = ? where Id_usu = ?', ['Inactivo',Id], (err, result) => {
-            res.json({ message: "Servicio eliminado" });
+        conn.query('update musuario set estado = ? where Id_usu = ?', ['Inactivo',Id_usu], (err, result) => {
+            res.json({ message: "Usuario eliminado" });
         });
     });
 };

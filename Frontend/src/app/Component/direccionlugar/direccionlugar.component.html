@@ -1,0 +1,68 @@
+<nav class="navbar navbar-dark bg-dark">
+  <a href="/" class="navbar-brand">Registros Direccion Lugar</a>
+</nav>
+
+<!--Almacenar Registros-->
+<div class="agregar_contenedor"></div>
+
+<button class="btn btn-primary" (click)="showModal = true">Agregar Dirección</button>
+
+<!-- Modal Bootstrap -->
+<div class="modal" tabindex="-1" [ngClass]="{'show d-block': showModal}" *ngIf="showModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar Dirección</h5>
+        <button type="button" class="btn-close" (click)="showModal = false"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" [(ngModel)]="user.col_dl" class="form-control mb-2" placeholder="Detalle de la Dirección">
+        <input type="text" [(ngModel)]="user.num_dl" class="form-control mb-2" placeholder="Número de Casa">
+        <select [(ngModel)]="user.Id_Col" class="form-control mb-2">
+          <option *ngFor="let lista of Colonialist" value={{lista.Id_Col}}>{{lista.Det_col}}</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="showModal = false">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="ModalGuardar()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <div class="container">  
+    <div class="row mt-25">          
+   <table class="table table-borbered table-hover">
+     <thead>
+        <tr>
+            <th>NO</th>
+            <th>Colonia Direccion</th>
+            <th>Numero de Casa</th>
+            <th>Colonia</th>
+            <th>Estado</th>
+        </tr>
+  
+      </thead>
+    <tbody >
+  
+                <tr *ngFor="let User of TUser">
+                    <td >{{User.Id_Dr}}</td>
+                    <td >{{User.col_dl}}</td>
+                    <td >{{User.num_dl}}</td>
+                    <td >{{User.Id_Col}}</td>
+                    <td >{{User.Estado}}</td>
+                    <td>
+                   <button 
+                    class="btn btn-danger" 
+                     (click)="confirmarEliminar(User.Id_Dr)">
+                     Eliminar
+                    </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-success" (click)="ModalEditar(User)">Actualizar</button></td>
+                  </tr>
+  
+     </tbody>
+   </table>
+</div>
+</div>

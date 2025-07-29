@@ -10,9 +10,9 @@ controller.list = (req, res) => {
 };
 
 controller.edit = (req, res) => {
-    const { Id } = req.params;
+    const { Id_emp } = req.params;
     req.getConnection((err, conn) => {
-        conn.query('select * from mempresa where Id_emp = ?', [Id], (err, data) => {
+        conn.query('select * from mempresa where Id_emp = ?', [Id_emp], (err, data) => {
             res.json(data[0]);
         });
     });
@@ -28,20 +28,20 @@ controller.save = (req, res) => {
 };
 
 controller.update = (req, res) => {
-    const { Id } = req.params;
+    const { Id_emp } = req.params;
     const updated = req.body;
     req.getConnection((err, conn) => {
-        conn.query('update mempresa set ? where Id_emp = ?', [updated, Id], (err, result) => {
-            res.json({ message: "Servicio actualizado" });
+        conn.query('update mempresa set ? where Id_emp = ?', [updated, Id_emp], (err, result) => {
+            res.json({ message: "Empresa actualizada" });
         });
     });
 };
 
 controller.delete = (req, res) => {
-    const { Id } = req.params;
+    const { Id_emp } = req.params;
     req.getConnection((err, conn) => {
-        conn.query('update cservicio set estado = ? where Id_serv = ?', ['Inactivo',Id], (err, result) => {
-            res.json({ message: "Servicio eliminado" });
+        conn.query('update mempresa set estado = ? where Id_emp = ?', ['Inactivo',Id_emp], (err, result) => {
+            res.json({ message: "Empresa eliminada" });
         });
     });
 };

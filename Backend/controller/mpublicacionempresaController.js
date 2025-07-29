@@ -10,9 +10,9 @@ controller.list = (req, res) => {
 };
 
 controller.edit = (req, res) => {
-    const { Id } = req.params;
+    const { Id_pube } = req.params;
     req.getConnection((err, conn) => {
-        conn.query('select * from mpublicacionempresa where Id_pube = ?', [Id], (err, data) => {
+        conn.query('select * from mpublicacionempresa where Id_pube = ?', [Id_pube], (err, data) => {
             res.json(data[0]);
         });
     });
@@ -28,20 +28,20 @@ controller.save = (req, res) => {
 };
 
 controller.update = (req, res) => {
-    const { Id } = req.params;
+    const { Id_pube } = req.params;
     const updated = req.body;
     req.getConnection((err, conn) => {
-        conn.query('update mpublicacionempresa set ? where Id_pube = ?', [updated, Id], (err, result) => {
-            res.json({ message: "Servicio actualizado" });
+        conn.query('update mpublicacionempresa set ? where Id_pube = ?', [updated, Id_pube], (err, result) => {
+            res.json({ message: "Publicacion de Empresa actualizada" });
         });
     });
 };
 
 controller.delete = (req, res) => {
-    const { Id } = req.params;
+    const { Id_pube } = req.params;
     req.getConnection((err, conn) => {
-        conn.query('update cservicio set estado = ? where Id_serv = ?', ['Inactivo',Id], (err, result) => {
-            res.json({ message: "Servicio eliminado" });
+        conn.query('update mpublicacionempresa set estado = ? where Id_pube = ?', ['Inactivo',Id_pube], (err, result) => {
+            res.json({ message: "Publicacion de Empresa eliminada" });
         });
     });
 };

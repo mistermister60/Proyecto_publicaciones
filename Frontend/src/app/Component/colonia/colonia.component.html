@@ -1,7 +1,30 @@
 <nav class="navbar navbar-dark bg-dark">
-    <a href="/" class="navbar-brand">REGISTRO DE COLONIAS</a>
- 
-  </nav>
+  <a href="/" class="navbar-brand">Registros de Colonia</a>
+</nav>
+
+<!--Almacenar Registros-->
+<div class="agregar_contenedor"></div>
+
+<button class="btn btn-primary" (click)="showModal = true">Agregar Colonia</button>
+
+<!-- Modal Bootstrap -->
+<div class="modal" tabindex="-1" [ngClass]="{'show d-block': showModal}" *ngIf="showModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar Colonia</h5>
+        <button type="button" class="btn-close" (click)="showModal = false"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" [(ngModel)]="user.Det_col" class="form-control mb-2" placeholder="Detalle de Colonia">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="showModal = false">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="guardarColonia()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
  <div class="container">  
     <div class="row mt-25">          
@@ -11,7 +34,6 @@
             <th>NO</th>
             <th>DETALLE COLONIA</th>
             <th>ESTADO</th>
-  
         </tr>
   
       </thead>
@@ -21,9 +43,15 @@
                     <td >{{User.Id_Col}}</td>
                     <td >{{User.Det_col}}</td>
                     <td >{{User.Estado}}</td>
-                    <td>  <button  class="btn btn-danger">Eliminar</button> </td>
                     <td>
-                        <button  class="btn btn-success">Actualizar</button></td>
+                   <button 
+                    class="btn btn-danger" 
+                     (click)="confirmarEliminar(User.Id_Col)">
+                     Eliminar
+                    </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-success" (click)="openEditModal(User)">Actualizar</button></td>
                   </tr>
   
      </tbody>

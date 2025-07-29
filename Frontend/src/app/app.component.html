@@ -1,5 +1,69 @@
-<router-outlet></router-outlet>
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid d-block">
 
-<div class="container" p-4>
-  <router-outlet></router-outlet>
-</div>
+    <!-- Sección lateral izquierda -->
+    <div class="d-flex">
+
+      <!-- Columna izquierda: título + botones -->
+      <div class="d-flex flex-column align-items-start p-3" style="min-width: 250px;">
+
+        <!-- Logo y título -->
+        <div class="d-flex align-items-center mb-4">
+          <img src="assets/icons/Logo.png" alt="Logo" width="32" height="32" class="me-2">
+          <span class="h5 mb-0">Sistema de Publicaciones</span>
+        </div>
+
+        <!-- Botones con separación -->
+        <div class="d-flex flex-column gap-2">
+          <button mat-button [routerLink]="['/empresa']">
+            <img src="assets/icons/Empresa.png" width="48" height="48" style="margin-right: 8px;">
+            Empresa
+          </button>
+          <button mat-button [routerLink]="['/perfilempresa']">
+            <img src="assets/icons/PerfilEmpresa.png" width="48" height="48" style="margin-right: 8px;">
+            Perfil Empresa
+          </button>
+                    <button mat-button [routerLink]="['/publicacionempresa']">
+            <img src="assets/icons/PublicacionEmpresa.png" width="48" height="48" style="margin-right: 8px;">
+            Publicación Empresa
+          </button>
+                    <button mat-button [routerLink]="['/servicio']">
+            <img src="assets/icons/Servicio.png" width="48" height="48" style="margin-right: 8px;">
+            Servicio
+          </button>
+                    <button mat-button [routerLink]="['/direccionlugar']">
+            <img src="assets/icons/Direccion.png" width="48" height="48" style="margin-right: 8px;">
+            Dirección
+          </button>
+          <button mat-button [routerLink]="['/colonia']">
+            <img src="assets/icons/Colonia.png" width="48" height="48" style="margin-right: 8px;">
+            Colonia
+          </button>
+
+          <button mat-button [routerLink]="['/usuario']">
+            <img src="assets/icons/Usuarios.png" width="48" height="48" style="margin-right: 8px;">
+            Usuarios
+          </button>
+
+          <button mat-button [routerLink]="['/perfilusuario']">
+            <img src="assets/icons/PerfilUsuario.png" width="48" height="48" style="margin-right: 8px;">
+            Perfil Usuario
+          </button>
+
+          <button mat-button [routerLink]="['/publicacion']">
+            <img src="assets/icons/Publicacion.png" width="48" height="48" style="margin-right: 8px;">
+            Publicación
+          </button>
+
+
+        </div>
+      </div>
+
+      <!-- Columna derecha: contenido -->
+      <div class="flex-grow-1 p-4">
+        <router-outlet></router-outlet>
+      </div>
+
+    </div>
+  </div>
+</nav>
