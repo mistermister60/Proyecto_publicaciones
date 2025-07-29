@@ -5,7 +5,7 @@
 <!--Almacenar Registros-->
 <div class="agregar_contenedor"></div>
 
-<button class="btn btn-primary" (click)="showModal = true">Agregar Dirección</button>
+<button class="btn btn-primary mb-3 mt-2" (click)="showModal = true">Agregar Dirección</button>
 
 <!-- Modal Bootstrap -->
 <div class="modal" tabindex="-1" [ngClass]="{'show d-block': showModal}" *ngIf="showModal">
@@ -30,9 +30,44 @@
   </div>
 </div>
 
+<div class="modal" tabindex="-1" [ngClass]="{'show d-block': showEditModal}" *ngIf="showEditModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Colonia</h5>
+        <button type="button" class="btn-close" (click)="closeEditModal()"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" [(ngModel)]="editDireccion.col_dl" class="form-control mb-2" placeholder="Detalle de la Dirección">
+        <input type="text" [(ngModel)]="editDireccion.num_dl" class="form-control mb-2" placeholder="Número de Casa">
+        <select [(ngModel)]="editDireccion.Id_Col" class="form-control mb-2">
+          <option *ngFor="let col of Colonialist" [value]="col.Id_Col">{{ col.Det_col }}</option>
+        </select>
+        <select [(ngModel)]="editDireccion.Estado" class="form-control mb-2">
+          <option value="Activo">Activo</option>
+          <option value="Inactivo">Inactivo</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeEditModal()">Cancelar</button>
+        <button type="button" class="btn btn-success" (click)="actualizar()">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="form-group mb-2 d-flex flex-wrap">
+  <button class="btn btn-outline-primary btn-sm me-2" (click)="estadoFiltro = 'Activo'">Ver Activos</button>
+  <button class="btn btn-outline-secondary btn-sm me-2" (click)="estadoFiltro = 'Inactivo'">Ver Inactivos</button>
+  <button (click)="exportToExcel()" class="btn btn-secondary me-2">Exportar a Excel</button>
+  &nbsp;&nbsp; <button class="btn btn-dark" (click)="openPDF()">Descargar PDF</button>`
+</div>
+<div class="form-group">
+          <input type="text" class="form-control" name="filterPost" placeholder="Digite la Direccion que desea Buscar" [(ngModel)]="filterPost">
+        </div>
+
  <div class="container">  
     <div class="row mt-25">          
-   <table class="table table-borbered table-hover">
+   <table class="table table-borbered table-hover" id="tabla">
      <thead>
         <tr>
             <th>NO</th>
@@ -45,21 +80,16 @@
       </thead>
     <tbody >
   
-                <tr *ngFor="let User of TUser">
+                <tr *ngFor="let User of getFiltradas() | filterdireccionlugar:filterPost">
                     <td >{{User.Id_Dr}}</td>
                     <td >{{User.col_dl}}</td>
                     <td >{{User.num_dl}}</td>
                     <td >{{User.Id_Col}}</td>
                     <td >{{User.Estado}}</td>
-                    <td>
-                   <button 
-                    class="btn btn-danger" 
-                     (click)="confirmarEliminar(User.Id_Dr)">
-                     Eliminar
-                    </button>
-                    </td>
-                    <td>
-                        <button class="btn btn-success" (click)="ModalEditar(User)">Actualizar</button></td>
+          <td>
+            <button class="btn btn-danger me-2" (click)="confirmarEliminar(User.Id_Dr)">Eliminar</button>
+            <button class="btn btn-success me-2" (click)="openEditModal(User)">Actualizar</button>
+          </td>
                   </tr>
   
      </tbody>

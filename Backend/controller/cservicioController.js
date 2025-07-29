@@ -31,7 +31,7 @@ controller.update = (req, res) => {
     const { Id_serv } = req.params;
     const updated = req.body;
     req.getConnection((err, conn) => {
-        conn.query('update cservicio set ? where Id_serv = ?', [updated, IId_servd], (err, result) => {
+        conn.query('update cservicio set ? where Id_serv = ?', [updated, Id_serv], (err, result) => {
             res.json({ message: "Servicio actualizado" });
         });
     });

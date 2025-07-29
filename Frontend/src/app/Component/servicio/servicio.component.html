@@ -1,1 +1,83 @@
-<p>servicio works!</p>
+<nav class="navbar navbar-dark bg-dark">
+  <a href="/" class="navbar-brand">Registros de Servicios</a>
+</nav>
+
+<div class="agregar_contenedor"></div>
+
+<button class="btn btn-primary mb-3 mt-2" (click)="showModal = true">Agregar Servicios</button>
+
+<!-- Modal Agregar Colonia -->
+<div class="modal" tabindex="-1" [ngClass]="{'show d-block': showModal}" *ngIf="showModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar Servicios</h5>
+        <button type="button" class="btn-close" (click)="showModal = false"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" [(ngModel)]="user.Det_sev" class="form-control mb-2" placeholder="Detalle del Servicio">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="showModal = false">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="ModalGuardar()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Editar Colonia -->
+<div class="modal" tabindex="-1" [ngClass]="{'show d-block': showEditModal}" *ngIf="showEditModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Servicios</h5>
+        <button type="button" class="btn-close" (click)="closeEditModal()"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" [(ngModel)]="editDireccion.Det_sev" class="form-control mb-2" placeholder="Detalle del Servicio">
+        <select [(ngModel)]="editDireccion.Estado" class="form-control mb-2">
+          <option value="Activo">Activo</option>
+          <option value="Inactivo">Inactivo</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeEditModal()">Cancelar</button>
+        <button type="button" class="btn btn-success" (click)="actualizar()">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="form-group mb-2 d-flex flex-wrap">
+  <button class="btn btn-outline-primary btn-sm me-2" (click)="estadoFiltro = 'Activo'">Ver Activos</button>
+  <button class="btn btn-outline-secondary btn-sm me-2" (click)="estadoFiltro = 'Inactivo'">Ver Inactivos</button>
+  <button (click)="exportToExcel()" class="btn btn-secondary me-2">Exportar a Excel</button>
+  &nbsp;&nbsp; <button class="btn btn-dark" (click)="openPDF()">Descargar PDF</button>`
+</div>
+<div class="form-group">
+          <input type="text" class="form-control" name="filterPost" placeholder="Digite el Servicio que desea Buscar" [(ngModel)]="filterPost">
+        </div>
+<div class="container">  
+  <div class="row mt-25">          
+    <table class="table table-bordered table-hover" id="tabla">
+      <thead>
+        <tr>
+          <th>NO</th>
+          <th>DETALLE SERVICIO</th>
+          <th>ESTADO</th>
+          <th>ACCIONES</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let User of getFiltradas() | filterservicio:filterPost">
+          <td>{{User.Id_serv}}</td>
+          <td>{{User.Det_sev}}</td>
+          <td>{{User.Estado}}</td>
+          <td>
+            <button class="btn btn-danger me-2" (click)="confirmarEliminar(User.Id_serv)">Eliminar</button>
+            <button class="btn btn-success me-2" (click)="openEditModal(User)">Actualizar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

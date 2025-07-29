@@ -1,1 +1,115 @@
-<p>usuario works!</p>
+<nav class="navbar navbar-dark bg-dark">
+  <a href="/" class="navbar-brand">Registros de Usuarios</a>
+</nav>
+
+<div class="agregar_contenedor"></div>
+
+<button class="btn btn-primary mb-3 mt-2" (click)="showModal = true">Agregar Usuario</button>
+
+<!-- Modal Agregar Usuario -->
+<div class="modal" tabindex="-1" [ngClass]="{'show d-block': showModal}" *ngIf="showModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar Usuario</h5>
+        <button type="button" class="btn-close" (click)="showModal = false"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" [(ngModel)]="user.Ma_usu" class="form-control mb-2" placeholder="Matrícula">
+        <input type="text" [(ngModel)]="user.Nom_usu" class="form-control mb-2" placeholder="Nombre">
+        <input type="text" [(ngModel)]="user.Pes_usu" class="form-control mb-2" placeholder="Contraseña">
+        <input type="date" [(ngModel)]="user.Nac_usu" class="form-control mb-2" placeholder="Fecha de Nacimiento">
+        <select [(ngModel)]="user.Ban_usu" class="form-control mb-2">
+          <option [ngValue]="true">Baneado</option>
+          <option [ngValue]="false">No Baneado</option>
+        </select>
+        <select [(ngModel)]="user.Reponsable_usu" class="form-control mb-2">
+          <option [ngValue]="true">Responsable</option>
+          <option [ngValue]="false">No Responsable</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="showModal = false">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="ModalGuardar()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Editar Usuario -->
+<div class="modal" tabindex="-1" [ngClass]="{'show d-block': showEditModal}" *ngIf="showEditModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Usuario</h5>
+        <button type="button" class="btn-close" (click)="closeEditModal()"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" [(ngModel)]="editDireccion.Ma_usu" class="form-control mb-2" placeholder="Matrícula">
+        <input type="text" [(ngModel)]="editDireccion.Nom_usu" class="form-control mb-2" placeholder="Nombre">
+        <input type="text" [(ngModel)]="editDireccion.Pes_usu" class="form-control mb-2" placeholder="Contraseña">
+        <input type="date" [(ngModel)]="editDireccion.Nac_usu" class="form-control mb-2" placeholder="Fecha de Nacimiento">
+        <select [(ngModel)]="editDireccion.Ban_usu" class="form-control mb-2">
+          <option [ngValue]="true">Baneado</option>
+          <option [ngValue]="false">No Baneado</option>
+        </select>
+        <select [(ngModel)]="editDireccion.Reponsable_usu" class="form-control mb-2">
+          <option [ngValue]="true">Responsable</option>
+          <option [ngValue]="false">No Responsable</option>
+        </select>
+        <select [(ngModel)]="editDireccion.Estado" class="form-control mb-2">
+          <option value="Activo">Activo</option>
+          <option value="Inactivo">Inactivo</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeEditModal()">Cancelar</button>
+        <button type="button" class="btn btn-success" (click)="actualizar()">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="form-group mb-2 d-flex flex-wrap">
+  <button class="btn btn-outline-primary btn-sm me-2" (click)="estadoFiltro = 'Activo'">Ver Activos</button>
+  <button class="btn btn-outline-secondary btn-sm me-2" (click)="estadoFiltro = 'Inactivo'">Ver Inactivos</button>
+  <button (click)="exportToExcel()" class="btn btn-secondary me-2">Exportar a Excel</button>
+  &nbsp;&nbsp; <button class="btn btn-dark" (click)="openPDF()">Descargar PDF</button>`
+</div>
+<div class="form-group">
+          <input type="text" class="form-control" name="filterPost" placeholder="Digite el Usuario que desea Buscar" [(ngModel)]="filterPost">
+        </div>
+<div class="container">  
+  <div class="row mt-25">          
+    <table class="table table-bordered table-hover" id="tabla">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Correo</th>
+          <th>Nombre</th>
+          <th>Contraseña</th>
+          <th>Nacimiento</th>
+          <th>Baneado</th>
+          <th>Responsable</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let User of getFiltradas() | filterusuario:filterPost">
+          <td>{{User.Id_usu}}</td>
+          <td>{{User.Ma_usu}}</td>
+          <td>{{User.Nom_usu}}</td>
+          <td>{{User.Pes_usu}}</td>
+          <td>{{User.Nac_usu}}</td>
+            <td>{{User.Ban_usu ? 'Sí' : 'No'}}</td>
+            <td>{{User.Reponsable_usu ? 'Sí' : 'No'}}</td>
+          <td>{{User.Estado}}</td>
+          <td>
+            <button class="btn btn-danger me-2" (click)="confirmarEliminar(User.Id_usu)">Eliminar</button>
+            <button class="btn btn-success me-2" (click)="openEditModal(User)">Actualizar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

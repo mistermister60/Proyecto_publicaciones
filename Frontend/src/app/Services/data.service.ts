@@ -56,4 +56,16 @@ save<T>(data: T, url: string): Observable<any> {
   getDropListColonias():Observable<any[]>{
 return this.http.get<any>(this.API_URI+'/colonia')
 }
+  getDropListEmpresa():Observable<any[]>{
+return this.http.get<any>(this.API_URI+'/empresa')
+}
+  getDropListUsuario():Observable<any[]>{
+return this.http.get<any>(this.API_URI+'/usuario')
+}
+  getDropListServicio():Observable<any[]>{
+return this.http.get<any>(this.API_URI+'/servicio')
+}
+  getDropListDireccionLugar():Observable<any[]>{
+return this.http.get<any>(this.API_URI+'/direccionlugar')
+}
 }

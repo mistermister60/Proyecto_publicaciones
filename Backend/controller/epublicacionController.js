@@ -40,7 +40,7 @@ controller.update = (req, res) => {
 controller.delete = (req, res) => {
     const { Id_Pub } = req.params;
     req.getConnection((err, conn) => {
-        conn.query('update epublicacion set estado = ? where Id_Pub = ?', ['Inactivo',Id_Pub], (err, result) => {
+        conn.query('update epublicacion set estado = ? where Id_Pub = ?', ['Oculto',Id_Pub], (err, result) => {
             res.json({ message: "Publicacion eliminado" });
         });
     });

@@ -32,7 +32,7 @@ export interface usuario {
   Pes_usu?: string | null;
   Nac_usu?: Date | string | null;
   Ban_usu?: boolean | null;
-  Reponsable_usu?: number | null;
+  Reponsable_usu?: boolean | null;
   Estado?: string | null;
 }
 
@@ -40,7 +40,7 @@ export interface perfilusuario {
   id_per?: number | null;
   des_per?: string | null;
   id_isu: number | null;
-  Estado?: string | null;
+  estado?: string | null;
 }
 
 export interface empresa {

@@ -1,0 +1,137 @@
+CREATE DATABASE publicaciones3;
+USE publicaciones3;
+
+-- 1. Tabla ccolonia
+CREATE TABLE ccolonia (
+  Id_Col INT AUTO_INCREMENT PRIMARY KEY,
+  Det_col VARCHAR(45) NULL,
+  Estado VARCHAR(20) NULL
+);
+
+INSERT INTO ccolonia (Det_col, Estado) VALUES
+('Jardines del Valle', 'Activo'),
+('Villas Mackay', 'Activo'),
+('El Pedregal', 'Activo');
+
+-- 2. Tabla mdireccionlugar
+CREATE TABLE mdireccionlugar (
+  Id_Dr INT AUTO_INCREMENT PRIMARY KEY,
+  col_dl VARCHAR(100) NULL,
+  num_dl VARCHAR(45) NULL,
+  Id_Col INT NOT NULL,
+  Estado VARCHAR(20) NULL,
+  FOREIGN KEY (Id_Col) REFERENCES ccolonia(Id_Col)
+);
+
+INSERT INTO mdireccionlugar (col_dl, num_dl, Id_Col, Estado) VALUES
+('Calle Principal, Jardines del Valle', 'Casa #101', 1, 'Activo'),
+('Pasaje 2, Villas Mackay', 'Casa #56', 2, 'Activo'),
+('Avenida Central, El Pedregal', 'Casa #89', 3, 'Activo');
+
+-- 3. Tabla cservicio
+CREATE TABLE cservicio (
+  Id_serv INT AUTO_INCREMENT PRIMARY KEY,
+  Det_sev VARCHAR(45) NULL,
+  Estado VARCHAR(20) NULL
+);
+
+INSERT INTO cservicio (Det_sev, Estado) VALUES
+('Desarrollo de Software', 'Activo'),
+('Marketing Digital', 'Activo'),
+('Consultoría Ambiental', 'Activo');
+
+-- 4. Tabla musuario
+CREATE TABLE musuario (
+  Id_usu INT AUTO_INCREMENT PRIMARY KEY,
+  Ma_usu VARCHAR(150) NULL,
+  Nom_usu VARCHAR(45) NULL,
+  Pes_usu VARCHAR(45) NULL,
+  Nac_usu DATE,
+  Ban_usu BIT,
+  Reponsable_usu BIT NOT NULL,
+  Estado VARCHAR(20) NULL
+);
+
+INSERT INTO musuario 
+(Ma_usu, Nom_usu, Pes_usu, Nac_usu, Ban_usu, Reponsable_usu, Estado) VALUES
+('admin@example.com', 'Carlos Fuentes', 'admin123', '2006-07-17', 0, 1, 'Activo'),
+('editor@example.com', 'María López', 'editor456', '1985-09-30', 0, 1, 'Activo'),
+('usuario@example.com', 'Juan Pérez', 'user789', '2000-01-20', 1, 0, 'Activo');
+
+-- 5. Tabla dperfilusuario
+CREATE TABLE dperfilusuario (
+  id_per INT AUTO_INCREMENT PRIMARY KEY,
+  des_per VARCHAR(45) NULL,
+  id_isu INT NOT NULL,
+  estado VARCHAR(20) NULL,
+  FOREIGN KEY (id_isu) REFERENCES musuario(Id_usu)
+);
+
+INSERT INTO dperfilusuario (des_per, id_isu, estado) VALUES
+('Administrador', 1, 'Activo'),
+('Residente', 2, 'Activo'),
+('Usuario Final', 3, 'Activo');
+
+-- 6. Tabla mempresa
+CREATE TABLE mempresa (
+  Id_emp INT AUTO_INCREMENT PRIMARY KEY,
+  Nom_emp VARCHAR(45) NULL,
+  Mail_Emp VARCHAR(100) NULL,
+  Pas_emp VARCHAR(45) NULL,
+  Id_Dil INT NOT NULL,
+  Id_Serv INT NOT NULL,
+  Estado VARCHAR(20) NULL,
+  FOREIGN KEY (Id_Dil) REFERENCES mdireccionlugar(Id_Dr),
+  FOREIGN KEY (Id_Serv) REFERENCES cservicio(Id_serv)
+);
+
+INSERT INTO mempresa 
+(Nom_emp, Mail_Emp, Pas_emp, Id_Dil, Id_Serv, Estado) VALUES
+('TecnoSoft S.A.', 'contacto@tecnosoft.com', 'tecno123', 1, 1, 'Activo'),
+('EcoVida SRL', 'info@ecovida.hn', 'eco456', 2, 2, 'Activo'),
+('ConstruRed', 'admin@construred.net', 'build789', 3, 3, 'Activo');
+
+-- 7. Tabla dperfilempresa
+CREATE TABLE dperfilempresa (
+  Id_pemp INT AUTO_INCREMENT PRIMARY KEY,
+  Inf_pemp VARCHAR(500) NULL,
+  des_pemp VARCHAR(500) NULL,
+  Id_emp INT NOT NULL,
+  Estado VARCHAR(20) NULL,
+  FOREIGN KEY (Id_emp) REFERENCES mempresa(Id_emp)
+);
+
+INSERT INTO dperfilempresa (Inf_pemp, des_pemp, Id_emp, Estado) VALUES
+('Empresa dedicada al desarrollo de software.', 'Especialistas en apps móviles y web.', 1, 'Activo'),
+('Agencia de marketing digital.', 'Campañas SEO y gestión de redes.', 2, 'Activo'),
+('Consultora ambiental.', 'Soluciones sostenibles para empresas.', 3, 'Activo');
+
+-- 8. Tabla mpublicacionempres
+CREATE TABLE mpublicacionempresa (
+  Id_pube INT AUTO_INCREMENT PRIMARY KEY,
+  Det_pube VARCHAR(45) NULL,
+  Id_emp INT NOT NULL,
+  Estado VARCHAR(20) NULL,
+  FOREIGN KEY (Id_emp) REFERENCES mempresa(Id_emp)
+);
+
+INSERT INTO mpublicacionempresa(Det_pube, Id_emp, Estado) VALUES
+('Nueva vacante de diseñador', 1, 'Publicado'),
+('Oferta en servicios de marketing', 2, 'Borrador'),
+('Charla sobre sostenibilidad', 3, 'Publicado');
+
+-- 9. Tabla epublicacion
+CREATE TABLE epublicacion (
+  Id_Pub INT AUTO_INCREMENT PRIMARY KEY,
+  Id_usu INT NOT NULL,
+  Det_pub VARCHAR(500) NULL,
+  Id_emp INT NOT NULL,
+  Estado VARCHAR(20) NULL,
+  FOREIGN KEY (Id_usu) REFERENCES musuario(Id_usu),
+  FOREIGN KEY (Id_emp) REFERENCES mempresa(Id_emp)
+);
+
+INSERT INTO epublicacion (Id_usu, Det_pub, Id_emp, Estado) VALUES
+(1, 'Gran oportunidad laboral en Tech Solutions.', 1, 'Visible'),
+(2, '¡Nueva campaña lanzada por MarketPro!', 2, 'Visible'),
+(3, 'EcoLogix anuncia programa verde.', 3, 'Oculto');

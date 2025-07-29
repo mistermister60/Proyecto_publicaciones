@@ -18,6 +18,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { FormsModule } from '@angular/forms';
+import { FilterempresaPipe } from './Pipes/FilterEmpresa/filterempresa.pipe';
+import { FiltercoloniaPipe } from './Pipes/FilterColonia/filtercolonia.pipe';
+import { FilterdireccionlugarPipe } from './Pipes/FilterDireccionLugar/filterdireccionlugar.pipe';
+import { FilterperfilempresaPipe } from './Pipes/FilterPerfilEmpresa/filterperfilempresa.pipe';
+import { FilterperfilusuarioPipe } from './Pipes/FilterPerfilUsuario/filterperfilusuario.pipe';
+import { FilterpublicacionPipe } from './Pipes/FilterPublicacion/filterpublicacion.pipe';
+import { FilterpublicacionempresaPipe } from './Pipes/FilterPublicacionEmpresa/filterpublicacionempresa.pipe';
+import { FilterservicioPipe } from './Pipes/FilterServicio/filterservicio.pipe';
+import { FilterusuarioPipe } from './Pipes/FilterUsuario/filterusuario.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +38,16 @@ import { FormsModule } from '@angular/forms';
     PublicacionComponent,
     PublicacionempresaComponent,
     ServicioComponent,
-    UsuarioComponent
+    UsuarioComponent,
+    FilterempresaPipe,
+    FiltercoloniaPipe,
+    FilterdireccionlugarPipe,
+    FilterperfilempresaPipe,
+    FilterperfilusuarioPipe,
+    FilterpublicacionPipe,
+    FilterpublicacionempresaPipe,
+    FilterservicioPipe,
+    FilterusuarioPipe
   ],
   imports: [
     BrowserModule,

@@ -43,7 +43,7 @@ app.use(myConnection(mysql,{
     user:'root',
     password:'CAFL1707',
     port:3306,
-    database:'publicaciones'
+    database:'publicaciones3'
 }, 'single'));
 app.use(express.urlencoded({extended: false}));
 

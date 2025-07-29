@@ -40,7 +40,7 @@ controller.update = (req, res) => {
 controller.delete = (req, res) => {
     const { Id_pube } = req.params;
     req.getConnection((err, conn) => {
-        conn.query('update mpublicacionempresa set estado = ? where Id_pube = ?', ['Inactivo',Id_pube], (err, result) => {
+        conn.query('update mpublicacionempresa set estado = ? where Id_pube = ?', ['Borrador',Id_pube], (err, result) => {
             res.json({ message: "Publicacion de Empresa eliminada" });
         });
     });

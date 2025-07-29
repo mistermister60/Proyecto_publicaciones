@@ -1,7 +1,11 @@
 import { Component, OnInit  } from '@angular/core';
 import { direccionlugar } from 'src/app/Interfaces/user';
 import { DataService } from '../../Services/data.service';
+import { ViewChild, ElementRef } from '@angular/core';
 import Swal from 'sweetalert2';
+import * as XLSX from 'xlsx';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-direccionlugar',
@@ -10,6 +14,9 @@ import Swal from 'sweetalert2';
 })
 export class DireccionlugarComponent implements OnInit {
   TUser: any = [];
+    @ViewChild('htmlData') htmlData!: ElementRef;
+  filterPost = '';
+    name = 'DireccionLugarData.xlsx';
   user: direccionlugar = {
     Id_Dr: null,
     col_dl: null,
@@ -19,11 +26,19 @@ export class DireccionlugarComponent implements OnInit {
   }
   Colonialist: any;
   showModal = false;
+    showEditModal = false;
+  editDireccion: direccionlugar = {
+    Id_Dr: null,
+    col_dl: '',
+    num_dl: '',
+    Id_Col: null,
+    Estado: 'Activo'
+  };
   constructor(private Data: DataService) { }
 
   ngOnInit(): void {
     this.getUser();
-    this.getDropListColonia(); // Asegura que Colonialist esté cargado
+    this.getDropListColonia(); 
   }
 
   getUser() {
@@ -100,10 +115,61 @@ export class DireccionlugarComponent implements OnInit {
   });
   }
 
-  ModalEditar(user: direccionlugar) {
-
-
+    openEditModal(user: direccionlugar) {
+    this.editDireccion = { ...user };
+    this.showEditModal = true;
   }
 
+  closeEditModal() {
+    this.showEditModal = false;
+        this.editDireccion = {
+      Id_Dr: null,
+      col_dl: '',
+      num_dl: '',
+      Id_Col: null,
+      Estado: 'Activo'
+    };
+  }
+    actualizar() {
+    if (!this.editDireccion.col_dl || !this.editDireccion.num_dl || !this.editDireccion.Id_Col) {
+      Swal.fire('Campos incompletos', 'Debe ingresar el detalle de la colonia', 'warning');
+      return;
+    }
+    this.Data.update(this.editDireccion.Id_Dr!, this.editDireccion, '/direccionlugar').subscribe(
+      res => {
+        this.getUser();
+        this.closeEditModal();
+        Swal.fire('¡Actualizado!', 'El registro ha sido actualizado.', 'success');
+      },
+      err => {
+        console.error(err);
+        Swal.fire('Error', 'No se pudo actualizar el registro', 'error');
+      }
+    );
+  }
+  estadoFiltro: 'Activo' | 'Inactivo' = 'Activo';
+
+getFiltradas() {
+  return this.TUser.filter((col: any) => col.Estado === this.estadoFiltro);
+}
+exportToExcel(): void {
+    let element = document.getElementById('tabla');
+    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    const book: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
+    XLSX.writeFile(book, this.name);
+  }
+public openPDF(): void {
+    let DATA: any = document.getElementById('tabla');
+    html2canvas(DATA).then((canvas) => {
+      let fileWidth = 208;
+      let fileHeight = (canvas.height * fileWidth) / canvas.width;
+      const FILEURI = canvas.toDataURL('image/png');
+      let PDF = new jsPDF('p', 'mm', 'a4');
+      let position = 0;
+      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+      PDF.save('Direccion.pdf');
+    });
+  }
 
 }
