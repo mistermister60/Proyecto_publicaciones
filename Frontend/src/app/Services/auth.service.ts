@@ -1,55 +1,71 @@
+import { Injectable } from '@angular/core';
+
+import { HttpClient } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  API_URI = 'http://localhost:3000/api';
-  
+  private URL = 'http://localhost:3000/api';
+
+  private tokenKey = 'auth-token';
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
-  constructor(private router: Router,
-    private http: HttpClient
-  ) {
-    
-    const token = localStorage.getItem('auth_token');
-    if (token) {
-      this.isAuthenticatedSubject.next(true);
-    }
+  constructor(
+    private http: HttpClient,
+    private jwtHelper: JwtHelperService,
+    private router: Router) { }
+
+  singin(user:any){
+    return this.http.post(`${this.URL}/user/singin`,user);
   }
 
-  login(data: any): Observable<any> {
-    return this.http.post(`${this.API_URI}/login`, data).pipe(
-      tap((res: any) => {
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('user', JSON.stringify(res.user));
-       
-        this.isAuthenticatedSubject.next(true);
-      })
-    );
-    console.log(data);
-  }
-
-  isLoggedIn(): boolean {
-    return this.isAuthenticatedSubject.value;
-  }
-  
-  getUser(): any {
-    return JSON.parse(localStorage.getItem('user') || '{}');
-  }
-  
-  logout(): Observable<any> {
+  isAuth():boolean{
     const token = localStorage.getItem('token');
-    return this.http.post(`${this.API_URI}/logout`, {}, {
-      headers: { Authorization: `Bearer ${token}` }
-    }).pipe(tap(() => localStorage.clear()));
-    
-    
+    if(this.jwtHelper.isTokenExpired(token) || !localStorage.getItem('token')){
+      return false;
+    }
+    return true;
   }
+ login(userName: string, pass: string): Observable<any> {
   
+  return this.http.post(`${this.URL}/user/login`, { userName, pass }).pipe(
+    tap((res: any) => {
+      localStorage.setItem(this.tokenKey, res.token);
+      
+    })
+  );
+}
+
+
+
+getToken() {
+  return localStorage.getItem(this.tokenKey);
+}
+
+getRole(): number | null {
+  const token = this.getToken();
+ 
+  if (!token) return null;
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  return payload.role;
+  
+}
+
+logout() {
+  localStorage.removeItem(this.tokenKey);
+  this.router.navigate(['/login']);
+}
+
+isLoggedIn() {
+  return !!this.getToken();
+}
+
 }
 

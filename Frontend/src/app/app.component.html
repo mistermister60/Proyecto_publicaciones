@@ -15,11 +15,11 @@
 
         <!-- Botones con separación -->
         <div class="d-flex flex-column gap-2">
-          <button class="d-flex align-items-center justify-content-start text-start" mat-button [routerLink]="['/empresa']">
+          <button *ngIf="userRole === 1 || userRole === 3" class="d-flex align-items-center justify-content-start text-start" mat-button [routerLink]="['/empresa']">
             <img src="assets/icons/Empresa.png" width="48" height="48" style="margin-right: 8px;">
             Empresa
           </button>
-          <button class="d-flex align-items-center justify-content-start text-start" mat-button [routerLink]="['/perfilempresa']">
+          <button *ngIf="userRole === 1 || userRole === 3" class="d-flex align-items-center justify-content-start text-start" mat-button [routerLink]="['/perfilempresa']">
             <img src="assets/icons/PerfilEmpresa.png" width="48" height="48" style="margin-right: 8px;">
             Perfil Empresa
           </button>
@@ -27,25 +27,25 @@
             <img src="assets/icons/PublicacionEmpresa.png" width="48" height="48" style="margin-right: 8px;">
             Publicación Empresa
           </button>
-                    <button class="d-flex align-items-center justify-content-start text-start" mat-button [routerLink]="['/servicio']">
+                    <button *ngIf="userRole === 1 || userRole === 3" class="d-flex align-items-center justify-content-start text-start" mat-button [routerLink]="['/servicio']">
             <img src="assets/icons/Servicio.png" width="48" height="48" style="margin-right: 8px;">
             Servicio
           </button>
-                    <button class="d-flex align-items-center justify-content-start text-start" mat-button [routerLink]="['/direccionlugar']">
+                    <button *ngIf="userRole === 1 || userRole === 3" class="d-flex align-items-center justify-content-start text-start" mat-button [routerLink]="['/direccionlugar']">
             <img src="assets/icons/Direccion.png" width="48" height="48" style="margin-right: 8px;">
             Dirección
           </button>
-          <button mat-button class="d-flex align-items-center justify-content-start text-start" [routerLink]="['/colonia']">
+          <button *ngIf="userRole === 1 || userRole === 3" mat-button class="d-flex align-items-center justify-content-start text-start" [routerLink]="['/colonia']">
             <img src="assets/icons/Colonia.png" width="48" height="48" style="margin-right: 8px;">
             Colonia
           </button>
 
-          <button mat-button class="d-flex align-items-center justify-content-start text-start" [routerLink]="['/usuario']">
+          <button *ngIf="userRole === 1 || userRole === 3" mat-button class="d-flex align-items-center justify-content-start text-start" [routerLink]="['/usuario']">
             <img src="assets/icons/Usuarios.png" width="48" height="48" style="margin-right: 8px;">
             Usuarios
           </button>
 
-          <button mat-button class="d-flex align-items-center justify-content-start text-start" [routerLink]="['/perfilusuario']">
+          <button *ngIf="userRole === 1" mat-button class="d-flex align-items-center justify-content-start text-start" [routerLink]="['/perfilusuario']">
             <img src="assets/icons/PerfilUsuario.png" width="48" height="48" style="margin-right: 8px;">
             Perfil Usuario
           </button>

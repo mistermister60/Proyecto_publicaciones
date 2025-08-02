@@ -36,6 +36,9 @@ const PublicacionEmpresaRoutes = require('./rutas/publicacionempresa');
 const ServicioRoutes = require('./rutas/servicio');
 const UsuarioRoutes = require('./rutas/usuario');
 const authRoutes = require('./rutas/auth');
+const userRoute = require('./rutas/user');
+
+
 app.set('port', process.env.PORT || 3000);
 
 app.use(morgan('dev'));
@@ -60,6 +63,7 @@ app.use('/api/publicacion', PublicacionRoutes);
 app.use('/api/publicacionempresa', PublicacionEmpresaRoutes);
 app.use('/api/servicio', ServicioRoutes);
 app.use('/api/usuario', UsuarioRoutes);
+app.use('/api/user',userRoute);
 app.use('/api', authRoutes);
 app.use(express.static(path.join(__dirname,'public')));
 

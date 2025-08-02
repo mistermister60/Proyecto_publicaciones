@@ -18,9 +18,12 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@auth0/angular-jwt": "^5.2.0",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.7",
     "cors": "^2.8.5",
+    "decode": "^0.3.0",
+    "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "express-myconnection": "^1.0.4",
     "jquery": "^3.7.1",

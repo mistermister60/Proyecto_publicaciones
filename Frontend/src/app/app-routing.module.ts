@@ -12,43 +12,75 @@ import { UsuarioComponent } from './Component/usuario/usuario.component';
 import { AuthGuard } from './Services/auth.guard';
 import { NoAutorizadoComponent } from './Component/no-autorizado/no-autorizado.component';
 import { LoginComponent } from './Component/login/login.component';
+import { RoleGuard } from './Services/role.guard';
 const routes: Routes = [
   {
     path: 'colonia',
     component :ColoniaComponent,
+     canActivate:  [RoleGuard] ,data: { roles: [1,3]  }
   },
     {
     path: 'direccionlugar',
-    component :DireccionlugarComponent
+    component :DireccionlugarComponent,
+    canActivate:  [RoleGuard] ,data: { roles: [1,2,3]  }
   },
     {
     path: 'empresa',
-    component :EmpresaComponent
+    component :EmpresaComponent,
+    canActivate:  [RoleGuard] ,data: { roles: [1,3]  }
   },
     {
     path: 'perfilempresa',
-    component :PerfilempresaComponent
+    component :PerfilempresaComponent,
+    canActivate:  [RoleGuard] ,data: { roles: [1,3]  }
   },
     {
     path: 'perfilusuario',
-    component :PerfilusuarioComponent
+    component :PerfilusuarioComponent,
+    canActivate:  [RoleGuard] ,data: { roles: [1]  }
   },
       {
     path: 'publicacion',
-    component :PublicacionComponent
+    component :PublicacionComponent,
+    canActivate:  [RoleGuard] ,data: { roles: [1,2,3]  }
   },
       {
     path: 'publicacionempresa',
-    component :PublicacionempresaComponent
+    component :PublicacionempresaComponent,
+    canActivate:  [RoleGuard] ,data: { roles: [1,3]  }
   },
       {
     path: 'servicio',
-    component :ServicioComponent
+    component :ServicioComponent,
+    canActivate:  [RoleGuard] ,data: { roles: [1,3]  }
   },
       {
     path: 'usuario',
-    component :UsuarioComponent
+    component :UsuarioComponent,
+    canActivate:  [RoleGuard] ,data: { roles: [1,2,3]  }
+  },
+  {
+  path: 'login',
+  component:LoginComponent
+
+},
+{
+  path: 'no-autorizado',
+  component:NoAutorizadoComponent
+
+},
+
+  {
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
+  },
+  // Ruta para manejar rutas no definidas
+  {
+    path: '**',
+    redirectTo: '/login'
   }
+
 ];
 
 

@@ -11,6 +11,9 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'Frontend';
+  
   constructor(public Data: DataService, public authService: AuthService, public router: Router) {}
-  user = this.authService.getUser();
+  get userRole(): number | null {
+    return this.authService.getRole();
+  }
 }

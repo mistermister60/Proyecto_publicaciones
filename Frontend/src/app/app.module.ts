@@ -29,6 +29,7 @@ import { FilterservicioPipe } from './Pipes/FilterServicio/filterservicio.pipe';
 import { FilterusuarioPipe } from './Pipes/FilterUsuario/filterusuario.pipe';
 import { NoAutorizadoComponent } from './Component/no-autorizado/no-autorizado.component';
 import { LoginComponent } from './Component/login/login.component';
+import { JwtHelperService, JWT_OPTIONS }  from '@auth0/angular-jwt'
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,7 +64,11 @@ import { LoginComponent } from './Component/login/login.component';
     FormsModule    
 
   ],
-  providers: [DataService],
+  providers: [DataService, { provide: JWT_OPTIONS, 
+      useValue: JWT_OPTIONS },
+    JwtHelperService,
+  ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
