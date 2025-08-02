@@ -49,7 +49,7 @@ CREATE TABLE dperfilusuario (
 INSERT INTO dperfilusuario (des_per, estado) VALUES
 ('Administrador', 'Activo'),
 ('Residente', 'Activo'),
-('Usuario Final', 'Activo');
+('Empresa', 'Activo');
 
 CREATE TABLE musuario (
   Id_usu INT AUTO_INCREMENT PRIMARY KEY,
