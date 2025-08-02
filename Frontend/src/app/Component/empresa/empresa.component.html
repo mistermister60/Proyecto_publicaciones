@@ -67,8 +67,14 @@
 <div class="form-group mb-2 d-flex flex-wrap">
   <button class="btn btn-outline-primary btn-sm me-2" (click)="estadoFiltro = 'Activo'">Ver Activos</button>
   <button class="btn btn-outline-secondary btn-sm me-2" (click)="estadoFiltro = 'Inactivo'">Ver Inactivos</button>
-  <button (click)="exportToExcel()" class="btn btn-secondary me-2">Exportar a Excel</button>
-  &nbsp;&nbsp; <button class="btn btn-dark" (click)="openPDF()">Descargar PDF</button>`
+  <button (click)="exportToExcel()" class="btn btn-success me-2">
+    <img src="assets/icons/Excel.png" width="32" height="32" style="margin-right: 8px;">
+    Exportar a Excel
+  </button>
+  &nbsp;&nbsp; <button class="btn btn-outline-primary" (click)="openPDF()">
+    <img src="assets/icons/PDF.png" width="32" height="32" style="margin-right: 8px;">
+    Descargar PDF
+  </button>`
 </div>
 <div class="form-group">
           <input type="text" class="form-control" name="filterPost" placeholder="Digite la Empresa que desea Buscar" [(ngModel)]="filterPost">
@@ -96,8 +102,8 @@
                     <td >{{User.Nom_emp}}</td>
                     <td >{{User.Mail_Emp}}</td>
                     <td >{{User.Pas_emp}}</td>
-                    <td >{{User.Id_Dil}}</td>
-                    <td >{{User.Id_Serv}}</td>
+                    <td >{{getDireccionNombre(User.Id_Dil)}}</td>
+                    <td >{{getServicioNombre(User.Id_Serv)}}</td>
                     <td >{{User.Estado}}</td>
           <td>
             <button class="btn btn-danger me-2" (click)="confirmarEliminar(User.Id_emp)">Eliminar</button>

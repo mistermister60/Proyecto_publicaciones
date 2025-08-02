@@ -1,5 +1,6 @@
-CREATE DATABASE publicaciones3;
-USE publicaciones3;
+CREATE DATABASE publicaciones5;
+USE publicaciones5;
+
 
 -- 1. Tabla ccolonia
 CREATE TABLE ccolonia (
@@ -40,7 +41,16 @@ INSERT INTO cservicio (Det_sev, Estado) VALUES
 ('Marketing Digital', 'Activo'),
 ('Consultoría Ambiental', 'Activo');
 
--- 4. Tabla musuario
+CREATE TABLE dperfilusuario (
+  id_per INT AUTO_INCREMENT PRIMARY KEY,
+  des_per VARCHAR(45) NULL,
+  estado VARCHAR(20) NULL
+);
+INSERT INTO dperfilusuario (des_per, estado) VALUES
+('Administrador', 'Activo'),
+('Residente', 'Activo'),
+('Usuario Final', 'Activo');
+
 CREATE TABLE musuario (
   Id_usu INT AUTO_INCREMENT PRIMARY KEY,
   Ma_usu VARCHAR(150) NULL,
@@ -49,29 +59,16 @@ CREATE TABLE musuario (
   Nac_usu DATE,
   Ban_usu BIT,
   Reponsable_usu BIT NOT NULL,
-  Estado VARCHAR(20) NULL
+  Estado VARCHAR(20) NULL,
+  logged_in TINYINT DEFAULT 0,                
+  id_per INT,                                 
+  FOREIGN KEY (id_per) REFERENCES dperfilusuario(id_per)
 );
-
 INSERT INTO musuario 
-(Ma_usu, Nom_usu, Pes_usu, Nac_usu, Ban_usu, Reponsable_usu, Estado) VALUES
-('admin@example.com', 'Carlos Fuentes', 'admin123', '2006-07-17', 0, 1, 'Activo'),
-('editor@example.com', 'María López', 'editor456', '1985-09-30', 0, 1, 'Activo'),
-('usuario@example.com', 'Juan Pérez', 'user789', '2000-01-20', 1, 0, 'Activo');
-
--- 5. Tabla dperfilusuario
-CREATE TABLE dperfilusuario (
-  id_per INT AUTO_INCREMENT PRIMARY KEY,
-  des_per VARCHAR(45) NULL,
-  id_isu INT NOT NULL,
-  estado VARCHAR(20) NULL,
-  FOREIGN KEY (id_isu) REFERENCES musuario(Id_usu)
-);
-
-INSERT INTO dperfilusuario (des_per, id_isu, estado) VALUES
-('Administrador', 1, 'Activo'),
-('Residente', 2, 'Activo'),
-('Usuario Final', 3, 'Activo');
-
+(Ma_usu, Nom_usu, Pes_usu, Nac_usu, Ban_usu, Reponsable_usu, Estado, logged_in, id_per) VALUES
+('admin@example.com', 'Carlos Fuentes', 'admin123', '2006-07-17', 0, 1, 'Activo', 0, 1),
+('editor@example.com', 'María López', 'editor456', '1985-09-30', 0, 1, 'Activo', 0, 2),
+('usuario@example.com', 'Juan Pérez', 'user789', '2000-01-20', 1, 0, 'Activo', 0, 3);
 -- 6. Tabla mempresa
 CREATE TABLE mempresa (
   Id_emp INT AUTO_INCREMENT PRIMARY KEY,

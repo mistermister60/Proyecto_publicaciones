@@ -17,9 +17,6 @@
       </div>
       <div class="modal-body">
         <input type="text" [(ngModel)]="user.des_per" class="form-control mb-2" placeholder="Descripcion del usuario">
-        <select [(ngModel)]="user.id_isu" class="form-control mb-2">
-          <option *ngFor="let lista of Usuariolist" value={{lista.Id_usu}}>{{lista.Nom_usu}}</option>
-        </select>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="showModal = false">Cancelar</button>
@@ -38,9 +35,6 @@
       </div>
       <div class="modal-body">
         <input type="text" [(ngModel)]="editDireccion.des_per" class="form-control mb-2" placeholder="Descripcion del usuario">
-        <select [(ngModel)]="editDireccion.id_isu" class="form-control mb-2">
-          <option *ngFor="let lista of Usuariolist" value={{lista.Id_usu}}>{{lista.Nom_usu}}</option>
-        </select>
         <select [(ngModel)]="editDireccion.estado" class="form-control mb-2">
           <option value="Activo">Activo</option>
           <option value="Inactivo">Inactivo</option>
@@ -56,8 +50,14 @@
 <div class="form-group mb-2 d-flex flex-wrap">
   <button class="btn btn-outline-primary btn-sm me-2" (click)="estadoFiltro = 'Activo'">Ver Activos</button>
   <button class="btn btn-outline-secondary btn-sm me-2" (click)="estadoFiltro = 'Inactivo'">Ver Inactivos</button>
-  <button (click)="exportToExcel()" class="btn btn-secondary me-2">Exportar a Excel</button>
-  &nbsp;&nbsp; <button class="btn btn-dark" (click)="openPDF()">Descargar PDF</button>`
+  <button (click)="exportToExcel()" class="btn btn-success me-2">
+    <img src="assets/icons/Excel.png" width="32" height="32" style="margin-right: 8px;">
+    Exportar a Excel
+  </button>
+  &nbsp;&nbsp; <button class="btn btn-outline-primary" (click)="openPDF()">
+    <img src="assets/icons/PDF.png" width="32" height="32" style="margin-right: 8px;">
+    Descargar PDF
+  </button>`
 </div>
 <div class="form-group">
           <input type="text" class="form-control" name="filterPost" placeholder="Digite el Perfil de Usuario que desea Buscar" [(ngModel)]="filterPost">
@@ -69,7 +69,6 @@
         <tr>
             <th>NO</th>
             <th>Descripcion</th>
-            <th>Usuario</th>
             <th>Estado</th>
         </tr>
   
@@ -79,7 +78,6 @@
                 <tr *ngFor="let User of getFiltradas() | filterperfilusuario:filterPost">
                     <td >{{User.id_per}}</td>
                     <td >{{User.des_per}}</td>
-                    <td >{{User.id_isu}}</td>
                     <td >{{User.estado}}</td>
           <td>
             <button class="btn btn-danger me-2" (click)="confirmarEliminar(User.id_per)">Eliminar</button>

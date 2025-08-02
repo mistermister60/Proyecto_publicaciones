@@ -68,4 +68,7 @@ return this.http.get<any>(this.API_URI+'/servicio')
   getDropListDireccionLugar():Observable<any[]>{
 return this.http.get<any>(this.API_URI+'/direccionlugar')
 }
+getDropListPerfilUsuario(): Observable<any[]> {
+  return this.http.get<any>(this.API_URI + '/perfilusuario');
+}
 }

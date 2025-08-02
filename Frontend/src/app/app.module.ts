@@ -27,6 +27,8 @@ import { FilterpublicacionPipe } from './Pipes/FilterPublicacion/filterpublicaci
 import { FilterpublicacionempresaPipe } from './Pipes/FilterPublicacionEmpresa/filterpublicacionempresa.pipe';
 import { FilterservicioPipe } from './Pipes/FilterServicio/filterservicio.pipe';
 import { FilterusuarioPipe } from './Pipes/FilterUsuario/filterusuario.pipe';
+import { NoAutorizadoComponent } from './Component/no-autorizado/no-autorizado.component';
+import { LoginComponent } from './Component/login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +49,9 @@ import { FilterusuarioPipe } from './Pipes/FilterUsuario/filterusuario.pipe';
     FilterpublicacionPipe,
     FilterpublicacionempresaPipe,
     FilterservicioPipe,
-    FilterusuarioPipe
+    FilterusuarioPipe,
+    NoAutorizadoComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

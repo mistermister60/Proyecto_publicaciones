@@ -50,8 +50,14 @@
 <div class="form-group mb-2 d-flex flex-wrap">
   <button class="btn btn-outline-primary btn-sm me-2" (click)="estadoFiltro = 'Activo'">Ver Activos</button>
   <button class="btn btn-outline-secondary btn-sm me-2" (click)="estadoFiltro = 'Inactivo'">Ver Inactivos</button>
-  <button class="btn btn-secondary me-2" (click)="exportToExcel()">Exportar a Excel</button>
-  <button class="btn btn-dark" (click)="openPDF()">Descargar PDF</button>
+  <button (click)="exportToExcel()" class="btn btn-success me-2">
+    <img src="assets/icons/Excel.png" width="32" height="32" style="margin-right: 8px;">
+    Exportar a Excel
+  </button>
+  &nbsp;&nbsp; <button class="btn btn-outline-primary" (click)="openPDF()">
+    <img src="assets/icons/PDF.png" width="32" height="32" style="margin-right: 8px;">
+    Descargar PDF
+  </button>`
 </div>
 <div class="form-group">
           <input type="text" class="form-control" name="filterPost" placeholder="Digite la Colonia que desea Buscar" [(ngModel)]="filterPost">

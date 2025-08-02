@@ -62,8 +62,14 @@
 <div class="form-group mb-2 d-flex flex-wrap">
   <button class="btn btn-outline-primary btn-sm me-2" (click)="estadoFiltro = 'Visible'">Ver Activos</button>
   <button class="btn btn-outline-secondary btn-sm me-2" (click)="estadoFiltro = 'Oculto'">Ver Inactivos</button>
-  <button (click)="exportToExcel()" class="btn btn-secondary me-2">Exportar a Excel</button>
-  &nbsp;&nbsp; <button class="btn btn-dark" (click)="openPDF()">Descargar PDF</button>`
+  <button (click)="exportToExcel()" class="btn btn-success me-2">
+    <img src="assets/icons/Excel.png" width="32" height="32" style="margin-right: 8px;">
+    Exportar a Excel
+  </button>
+  &nbsp;&nbsp; <button class="btn btn-outline-primary" (click)="openPDF()">
+    <img src="assets/icons/PDF.png" width="32" height="32" style="margin-right: 8px;">
+    Descargar PDF
+  </button>`
 </div>
 <div class="form-group">
           <input type="text" class="form-control" name="filterPost" placeholder="Digite la Publicacion que desea Buscar" [(ngModel)]="filterPost">
@@ -85,9 +91,9 @@
   
                 <tr *ngFor="let User of getFiltradas() | filterpublicacion:filterPost">
                     <td >{{User.Id_Pub}}</td>
-                    <td >{{User.Id_usu}}</td>
+                    <td >{{getUsuarioNombre(User.Id_usu)}}</td>
                     <td >{{User.Det_pub}}</td>
-                     <td >{{User.Id_emp}}</td>
+                     <td >{{getEmpresaNombre(User.Id_emp)}}</td>
                     <td >{{User.Estado}}</td>
           <td>
             <button class="btn btn-danger me-2" (click)="confirmarEliminar(User.Id_Pub)">Eliminar</button>

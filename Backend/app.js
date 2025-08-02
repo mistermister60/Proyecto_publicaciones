@@ -35,6 +35,7 @@ const PublicacionRoutes = require('./rutas/publicacion');
 const PublicacionEmpresaRoutes = require('./rutas/publicacionempresa');
 const ServicioRoutes = require('./rutas/servicio');
 const UsuarioRoutes = require('./rutas/usuario');
+const authRoutes = require('./rutas/auth');
 app.set('port', process.env.PORT || 3000);
 
 app.use(morgan('dev'));
@@ -43,7 +44,7 @@ app.use(myConnection(mysql,{
     user:'root',
     password:'CAFL1707',
     port:3306,
-    database:'publicaciones3'
+    database:'publicaciones5'
 }, 'single'));
 app.use(express.urlencoded({extended: false}));
 
@@ -59,7 +60,7 @@ app.use('/api/publicacion', PublicacionRoutes);
 app.use('/api/publicacionempresa', PublicacionEmpresaRoutes);
 app.use('/api/servicio', ServicioRoutes);
 app.use('/api/usuario', UsuarioRoutes);
-
+app.use('/api', authRoutes);
 app.use(express.static(path.join(__dirname,'public')));
 
 app.listen(app.get('port'), () =>{

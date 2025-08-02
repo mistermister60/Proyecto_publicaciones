@@ -12,23 +12,25 @@ import html2canvas from 'html2canvas';
   templateUrl: './usuario.component.html',
   styleUrls: ['./usuario.component.css']
 })
-export class UsuarioComponent implements OnInit{
+export class UsuarioComponent implements OnInit {
   TUser: any = [];
-              @ViewChild('htmlData') htmlData!: ElementRef;
+  PerfilUsuariolist: any = []; // <-- nueva lista
+  @ViewChild('htmlData') htmlData!: ElementRef;
   filterPost = '';
-        name = 'UsuarioData.xlsx';
+  name = 'UsuarioData.xlsx';
   user: usuario = {
-  Id_usu: null,
-  Ma_usu: null,
-  Nom_usu: null,
-  Pes_usu: null,
-  Nac_usu: '',
-  Ban_usu: false,
-  Reponsable_usu: false,
-  Estado: 'Activo'
+    Id_usu: null,
+    Ma_usu: null,
+    Nom_usu: null,
+    Pes_usu: null,
+    Nac_usu: '',
+    Ban_usu: false,
+    Reponsable_usu: false,
+    Estado: 'Activo',
+    id_per: null // <-- nuevo campo
   }
-      showModal = false;
-      showEditModal = false;
+  showModal = false;
+  showEditModal = false;
   editDireccion: usuario = {
     Id_usu: null,
     Ma_usu: '',
@@ -37,14 +39,23 @@ export class UsuarioComponent implements OnInit{
     Nac_usu: '',
     Ban_usu: false,
     Reponsable_usu: false,
-    Estado: 'Activo'
+    Estado: 'Activo',
+    id_per: null // <-- nuevo campo
   };
 
   constructor(private Data: DataService) { }
 
   ngOnInit(): void {
     this.getUser();
+    this.getDropListPerfilUsuario(); // <-- cargar la lista
   }
+
+  getDropListPerfilUsuario() {
+    this.Data.getDropListPerfilUsuario().subscribe((data: any) => {
+      this.PerfilUsuariolist = Array.isArray(data) ? data : [];
+    });
+  }
+
   getUser() {
     this.Data.getAll('/usuario')
       .subscribe(res => {
@@ -52,8 +63,8 @@ export class UsuarioComponent implements OnInit{
         this.normalizeBooleanFields();
         }, err => console.error(err));
   }
- ModalGuardar() {
-    if (!this.user.Ma_usu || !this.user.Nom_usu || !this.user.Pes_usu || !this.user.Nac_usu) {
+  ModalGuardar() {
+    if (!this.user.Ma_usu || !this.user.Nom_usu || !this.user.Pes_usu || !this.user.Nac_usu || !this.user.id_per) {
       Swal.fire('Campos incompletos', 'Debe completar todos los campos', 'warning');
       return;
     }
@@ -65,7 +76,8 @@ export class UsuarioComponent implements OnInit{
       Nac_usu: this.user.Nac_usu,
       Ban_usu: this.user.Ban_usu,
       Reponsable_usu: this.user.Reponsable_usu,
-      Estado: 'Activo'
+      Estado: 'Activo',
+      id_per: this.user.id_per // <-- nuevo campo
     };
     this.Data.save(newUser, '/usuario').subscribe(
       res => {
@@ -79,7 +91,8 @@ export class UsuarioComponent implements OnInit{
           Nac_usu: '',
           Ban_usu: false,
           Reponsable_usu: false,
-          Estado: 'Activo'
+          Estado: 'Activo',
+          id_per: null // <-- nuevo campo
         };
         Swal.fire('¡Guardado!', 'El usuario ha sido guardado.', 'success');
       },
@@ -89,7 +102,7 @@ export class UsuarioComponent implements OnInit{
       }
     );
   }
-    openEditModal(user: usuario) {
+  openEditModal(user: usuario) {
     this.editDireccion = { ...user };
     this.showEditModal = true;
   }
@@ -104,12 +117,13 @@ export class UsuarioComponent implements OnInit{
       Nac_usu: '',
       Ban_usu: false,
       Reponsable_usu: false,
-      Estado: 'Activo'
+      Estado: 'Activo',
+      id_per: null // <-- nuevo campo
     };
   }
 
   actualizar() {
-    if (!this.editDireccion.Ma_usu || !this.editDireccion.Nom_usu || !this.editDireccion.Pes_usu || !this.editDireccion.Nac_usu) {
+    if (!this.editDireccion.Ma_usu || !this.editDireccion.Nom_usu || !this.editDireccion.Pes_usu || !this.editDireccion.Nac_usu || !this.editDireccion.id_per) {
       Swal.fire('Campos incompletos', 'Debe completar todos los campos', 'warning');
       return;
     }
@@ -181,5 +195,8 @@ exportToExcel(): void {
       PDF.save('Usuarios.pdf');
     });
   }
-
+getPerfilNombre(id: number): string {
+  const perfil = this.PerfilUsuariolist?.find((p: any) => p.id_per === id);
+  return perfil ? perfil.des_per : '';
+}
 }

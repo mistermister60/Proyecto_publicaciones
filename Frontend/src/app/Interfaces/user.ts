@@ -34,12 +34,12 @@ export interface usuario {
   Ban_usu?: boolean | null;
   Reponsable_usu?: boolean | null;
   Estado?: string | null;
+  id_per?: number | null; // <-- nuevo campo
 }
 
 export interface perfilusuario {
   id_per?: number | null;
   des_per?: string | null;
-  id_isu: number | null;
   estado?: string | null;
 }
 

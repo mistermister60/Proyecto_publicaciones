@@ -186,5 +186,13 @@ exportToExcel(): void {
       PDF.save('empresas.pdf');
     });
   }
+getDireccionNombre(id: number): string {
+  const direccion = this.DireccionLugarlist?.find((d: any) => d.Id_Dr === id);
+  return direccion ? direccion.col_dl : '';
+}
 
+getServicioNombre(id: number): string {
+  const servicio = this.Serviciolist?.find((s: any) => s.Id_serv === id);
+  return servicio ? servicio.Det_sev : '';
+}
 }

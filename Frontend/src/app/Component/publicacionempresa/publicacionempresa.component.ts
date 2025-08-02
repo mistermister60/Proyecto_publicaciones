@@ -162,5 +162,8 @@ public openPDF(): void {
       PDF.save('Publicacion Empresa.pdf');
     });
   }
-
+getEmpresaNombre(id: number): string {
+  const empresa = this.Empresalist?.find((e: any) => e.Id_emp === id);
+  return empresa ? empresa.Nom_emp : '';
+}
 }

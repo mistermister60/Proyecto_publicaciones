@@ -171,5 +171,8 @@ public openPDF(): void {
       PDF.save('Direccion.pdf');
     });
   }
-
+getColoniaNombre(id: number): string {
+  const colonia = this.Colonialist?.find((col: any) => col.Id_Col === id);
+  return colonia ? colonia.Det_col : '';
+}
 }

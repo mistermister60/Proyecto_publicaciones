@@ -177,5 +177,13 @@ public openPDF(): void {
       PDF.save('Publicacion.pdf');
     });
   }
+getUsuarioNombre(id: number): string {
+  const usuario = this.Usuariolist?.find((u: any) => u.Id_usu === id);
+  return usuario ? usuario.Nom_usu : '';
+}
 
+getEmpresaNombre(id: number): string {
+  const empresa = this.Empresalist?.find((e: any) => e.Id_emp === id);
+  return empresa ? empresa.Nom_emp : '';
+}
 }

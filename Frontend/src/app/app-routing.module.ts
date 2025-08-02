@@ -9,10 +9,13 @@ import { PublicacionComponent } from './Component/publicacion/publicacion.compon
 import { PublicacionempresaComponent } from './Component/publicacionempresa/publicacionempresa.component';
 import { ServicioComponent } from './Component/servicio/servicio.component';
 import { UsuarioComponent } from './Component/usuario/usuario.component';
+import { AuthGuard } from './Services/auth.guard';
+import { NoAutorizadoComponent } from './Component/no-autorizado/no-autorizado.component';
+import { LoginComponent } from './Component/login/login.component';
 const routes: Routes = [
   {
     path: 'colonia',
-    component :ColoniaComponent
+    component :ColoniaComponent,
   },
     {
     path: 'direccionlugar',

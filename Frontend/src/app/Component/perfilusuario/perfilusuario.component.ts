@@ -20,31 +20,22 @@ export class PerfilusuarioComponent implements OnInit {
   user: perfilusuario = {
   id_per: null,
   des_per: null,
-  id_isu: null,
   estado: 'Activo'
   }
-      Usuariolist: any;
         showModal = false;
           showEditModal = false;
         editDireccion: perfilusuario = {
           id_per: null,
           des_per: '',
-          id_isu: null,
+  
           estado: 'Activo'
         };
     constructor(private Data: DataService) { }
 
   ngOnInit(): void {
     this.getUser();
-    this.getDropListUsuario();
   }
-      getDropListUsuario() {
-    this.Data.getDropListUsuario().subscribe((data: any) => {
-    this.Usuariolist = Array.isArray(data)
-      ? data.filter((empresa: any) => empresa.Estado === 'Activo')
-      : [];
-  });
-  }
+
   getUser() {
     this.Data.getAll('/perfilusuario')
       .subscribe(res => {
@@ -53,14 +44,13 @@ export class PerfilusuarioComponent implements OnInit {
         }, err => console.error(err));
   }
 ModalGuardar() {
-    if (!this.user.des_per || !this.user.id_isu) {
+    if (!this.user.des_per) {
       Swal.fire('Campos incompletos', 'Debe completar todos los campos', 'warning');
       return;
     }
     const newUser: perfilusuario = {
       id_per: null,
       des_per: this.user.des_per,
-      id_isu: this.user.id_isu,
       estado: 'Activo'
     };
     this.Data.save(newUser, '/perfilusuario').subscribe(
@@ -70,7 +60,6 @@ ModalGuardar() {
         this.user = {
           id_per: null,
           des_per: '',
-          id_isu: null,
           estado: 'Activo'
         };
         Swal.fire('¡Guardado!', 'El registro ha sido guardado correctamente.', 'success');
@@ -116,12 +105,11 @@ ModalGuardar() {
             this.editDireccion = {
           id_per: null,
           des_per: '',
-          id_isu: null,
           estado: 'Activo'
         };
       }
         actualizar() {
-        if (!this.editDireccion.des_per || !this.editDireccion.id_isu) {
+        if (!this.editDireccion.des_per) {
           Swal.fire('Campos incompletos', 'Debe ingresar el detalle de la colonia', 'warning');
           return;
         }
